@@ -3,7 +3,7 @@
 %define release %mkrel 5
 
 Name:    %{name}
-Summary: SpiralSynth is a simple software synthesizer.
+Summary: SpiralSynth is a simple software synthesizer
 Version: %{version}
 Release: %{release}
 
