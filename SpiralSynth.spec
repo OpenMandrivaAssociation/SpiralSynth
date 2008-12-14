@@ -11,8 +11,10 @@ Source:		%name-%{version}.tar.bz2
 Source1: 	SpiralLogo48.png
 Source2: 	SpiralLogo32.png
 Source3: 	SpiralLogo16.png
-Patch:		%name-2.0.0.patch.bz2
+Patch:		%name-2.0.0.patch
 Patch1:         SpiralSynth-2.0.0-fix-build.patch
+Patch2:		SpiralSynth-2.0.0-gcc43.patch
+Patch3:		SpiralSynth-2.0.0-newer-fltk.patch
 URL:		http://www.pawfal.org/Software/SpiralSynth
 License:	GPL
 Group:		Sound
@@ -29,11 +31,14 @@ to be as easy to use as possible.
 %setup -q -n %name-%version
 %patch -p1
 %patch1 -p1
+%patch2 -p0
+%patch3 -p0
+
 perl -pi -e 's/usr\/X11R6\/lib/usr\/X11R6\/%{_lib}/g' Makefile.in PluginLink.sh
 
 %build
 %configure
-%make
+%make CXXFLAGS="%{optflags}" LFLAGS="%{?ldflags}"
 										
 %install
 rm -rf $RPM_BUILD_ROOT
