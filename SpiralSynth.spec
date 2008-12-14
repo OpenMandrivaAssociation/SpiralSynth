@@ -19,7 +19,7 @@ URL:		http://www.pawfal.org/Software/SpiralSynth
 License:	GPL
 Group:		Sound
 BuildRoot:	%{_tmppath}/%{name}-buildroot
-BuildRequires:	fltk-devel
+BuildRequires:	fltk-devel mesagl-devel
 
 %description
 SSM's little brother has been updated at last, much much faster, better
