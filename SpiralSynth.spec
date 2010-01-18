@@ -1,6 +1,6 @@
 %define name SpiralSynth
 %define version 2.0.0
-%define release %mkrel 9
+%define release %mkrel 10
 
 Name:    %{name}
 Summary: Simple software synthesizer
