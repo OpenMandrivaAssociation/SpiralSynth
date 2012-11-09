@@ -1,0 +1,10 @@
+--- SpiralSound/Sample.h~	2008-12-14 16:38:50.000000000 +0100
++++ SpiralSound/Sample.h	2008-12-14 16:39:25.000000000 +0100
+@@ -22,6 +22,7 @@
+ #include <assert.h>
+ #include <limits.h>
+ #include <iostream>
++#include <cstring>
+ #include "SpiralInfo.h"
+ 
+ using namespace std;

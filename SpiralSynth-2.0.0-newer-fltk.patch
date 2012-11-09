@@ -1,0 +1,22 @@
+--- GUI/OutputGUI.C~	2008-12-14 16:35:00.000000000 +0100
++++ GUI/OutputGUI.C	2008-12-14 16:37:12.000000000 +0100
+@@ -18,7 +18,7 @@
+ 
+ #include "OutputGUI.h"
+ 
+-#include <FL/fl_file_chooser.h>
++#include <FL/Fl_File_Chooser.H>
+ 
+ OutputGUI::OutputGUI(OSSOutput *o)
+ {
+--- SpiralSound/Midi.C~	2002-06-12 00:08:56.000000000 +0200
++++ SpiralSound/Midi.C	2008-12-14 16:36:38.000000000 +0100
+@@ -24,7 +24,7 @@
+ #include "pthread.h"
+ 
+ #ifdef KEYBOARD_SUPPORT
+-#include <FL/Fl.h>
++#include <FL/Fl.H>
+ #endif
+ 
+ static const int MIDI_SCANBUFSIZE=256;

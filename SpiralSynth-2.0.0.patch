@@ -1,0 +1,231 @@
+diff -r -u SpiralSynth-2.0.0-orig/GUI/MixerGUI.C SpiralSynth-2.0.0/GUI/MixerGUI.C
+--- SpiralSynth-2.0.0-orig/GUI/MixerGUI.C	2002-06-04 06:47:02.000000000 -0500
++++ SpiralSynth-2.0.0/GUI/MixerGUI.C	2003-02-08 20:53:12.000000000 -0500
+@@ -24,7 +24,7 @@
+ 	if (!m_mix) cerr<<"WARNING: Mixer not correctly set up"<<endl;
+ }
+ 		
+-void MixerGUI::CreateGUI(int xoff=0, int yoff=0, char *name)
++void MixerGUI::CreateGUI(int xoff, int yoff, char *name)
+ {
+ 	 Fl_Group* o = GUIMixGroup = new Fl_Group(xoff, yoff, 100, 110, name);
+       o->type(1);
+diff -r -u SpiralSynth-2.0.0-orig/GUI/OutputGUI.C SpiralSynth-2.0.0/GUI/OutputGUI.C
+--- SpiralSynth-2.0.0-orig/GUI/OutputGUI.C	2002-06-02 16:36:16.000000000 -0500
++++ SpiralSynth-2.0.0/GUI/OutputGUI.C	2003-02-08 20:53:12.000000000 -0500
+@@ -26,7 +26,7 @@
+ 	if (!m_out) cerr<<"WARNING: Output not correctly set up"<<endl;
+ }
+ 		
+-void OutputGUI::CreateGUI(int xoff=0, int yoff=0, char *name)
++void OutputGUI::CreateGUI(int xoff, int yoff, char *name)
+ {
+ 	 Fl_Group* o = GUIMixGroup = new Fl_Group(xoff, yoff, 85, 110, name);
+       o->type(1);
+diff -r -u SpiralSynth-2.0.0-orig/GUI/ScopeGUI.C SpiralSynth-2.0.0/GUI/ScopeGUI.C
+--- SpiralSynth-2.0.0-orig/GUI/ScopeGUI.C	2002-06-04 08:27:30.000000000 -0500
++++ SpiralSynth-2.0.0/GUI/ScopeGUI.C	2003-02-08 20:53:12.000000000 -0500
+@@ -22,7 +22,7 @@
+ 
+ #include <FL/fl_draw.H>
+ 
+-ScopeWidget::ScopeWidget(int x,int y,int w,int h,const char *l=0) :
++ScopeWidget::ScopeWidget(int x,int y,int w,int h,const char *l) :
+ Fl_Widget(x,y,w,h,l),
+ m_Data(NULL)
+ {
+@@ -54,7 +54,7 @@
+ 	if (!m_Bypass) m_Scope->redraw();
+ }
+ 		
+-void ScopeGUI::CreateGUI(int xoff=0, int yoff=0, char *name)
++void ScopeGUI::CreateGUI(int xoff, int yoff, char *name)
+ {
+ 	 Fl_Group* o = GUIScopeGroup = new Fl_Group(xoff, yoff, 220, 110, name);
+       o->type(1);
+diff -r -u SpiralSynth-2.0.0-orig/GUI/Widgets/Fl_Knob.cxx SpiralSynth-2.0.0/GUI/Widgets/Fl_Knob.cxx
+--- SpiralSynth-2.0.0-orig/GUI/Widgets/Fl_Knob.cxx	2002-06-02 05:23:34.000000000 -0500
++++ SpiralSynth-2.0.0/GUI/Widgets/Fl_Knob.cxx	2003-02-08 20:53:12.000000000 -0500
+@@ -5,6 +5,8 @@
+ #include <math.h>
+ #include <iostream>
+ 
++using namespace std;
++
+ Fl_Knob::Fl_Knob(int xx,int yy,int ww,int hh,const char *l): Fl_Valuator(xx,yy,ww,hh,l) {
+   a1 = 35;
+ 	a2 = 325;
+diff -r -u SpiralSynth-2.0.0-orig/SpiralInfo.C SpiralSynth-2.0.0/SpiralInfo.C
+--- SpiralSynth-2.0.0-orig/SpiralInfo.C	2002-06-02 10:44:31.000000000 -0500
++++ SpiralSynth-2.0.0/SpiralInfo.C	2003-02-08 20:53:12.000000000 -0500
+@@ -16,13 +16,15 @@
+  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+ 
+-#include <iostream.h>
+-#include <fstream.h>
++#include <iostream>
++#include <fstream>
+ #include <stdlib.h>
+ 
+ #include "SpiralSound/SpiralInfo.h"
+ 
+-float RandFloat(float s=0.0f, float e=1.0f)
++using namespace std;
++
++float RandFloat(float s, float e)
+ {
+ 	return s+((rand()%10000/10000.0)*(e-s));
+ }
+diff -r -u SpiralSynth-2.0.0-orig/SpiralSound/Midi.h SpiralSynth-2.0.0/SpiralSound/Midi.h
+--- SpiralSynth-2.0.0-orig/SpiralSound/Midi.h	2002-06-02 05:28:09.000000000 -0500
++++ SpiralSynth-2.0.0/SpiralSound/Midi.h	2003-02-08 20:53:12.000000000 -0500
+@@ -25,6 +25,8 @@
+ #include <queue>
+ #include <string>
+ 
++using namespace std;
++
+ #ifndef MIDI
+ #define MIDI
+ 
+diff -r -u SpiralSynth-2.0.0-orig/SpiralSound/RiffWav.C SpiralSynth-2.0.0/SpiralSound/RiffWav.C
+--- SpiralSynth-2.0.0-orig/SpiralSound/RiffWav.C	2002-06-02 05:28:18.000000000 -0500
++++ SpiralSynth-2.0.0/SpiralSound/RiffWav.C	2003-02-08 20:53:41.000000000 -0500
+@@ -26,6 +26,8 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <fcntl.h>
++
++using namespace std;
+ 
+ //#define TRACE_OUT		
+ 
+Only in SpiralSynth-2.0.0/SpiralSound: RiffWav.C~
+Only in SpiralSynth-2.0.0/SpiralSound: RiffWav.C.orig
+diff -r -u SpiralSynth-2.0.0-orig/SpiralSound/RiffWav.h SpiralSynth-2.0.0/SpiralSound/RiffWav.h
+--- SpiralSynth-2.0.0-orig/SpiralSound/RiffWav.h	2002-06-02 05:28:19.000000000 -0500
++++ SpiralSynth-2.0.0/SpiralSound/RiffWav.h	2003-02-08 20:53:12.000000000 -0500
+@@ -24,6 +24,8 @@
+ #include <stdio.h>
+ #include "Sample.h"
+ 
++using namespace std;
++
+ struct CanonicalWavHeader
+ {
+ 	char  RiffName[4];
+diff -r -u SpiralSynth-2.0.0-orig/SpiralSound/Sample.C SpiralSynth-2.0.0/SpiralSound/Sample.C
+--- SpiralSynth-2.0.0-orig/SpiralSound/Sample.C	2002-06-02 05:28:26.000000000 -0500
++++ SpiralSynth-2.0.0/SpiralSound/Sample.C	2003-02-08 20:53:12.000000000 -0500
+@@ -16,10 +16,12 @@
+  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */ 
+ 
+-#include <string.h>
++#include <string>
+ #include "Sample.h"
+ #include <iostream>
+ 
++using namespace std;
++
+ Sample::Sample(int Len) :
+ m_IsEmpty(true),
+ m_DataGranularity(1),//512),
+diff -r -u SpiralSynth-2.0.0-orig/SpiralSound/Sample.h SpiralSynth-2.0.0/SpiralSound/Sample.h
+--- SpiralSynth-2.0.0-orig/SpiralSound/Sample.h	2002-06-02 05:28:26.000000000 -0500
++++ SpiralSynth-2.0.0/SpiralSound/Sample.h	2003-02-08 20:53:12.000000000 -0500
+@@ -24,6 +24,8 @@
+ #include <iostream>
+ #include "SpiralInfo.h"
+ 
++using namespace std;
++
+ //#define DEBUG
+ 
+ inline float Linear(float bot,float top,float pos,float val1,float val2) 
+diff -r -u SpiralSynth-2.0.0-orig/SpiralSound/SpiralInfo.h SpiralSynth-2.0.0/SpiralSound/SpiralInfo.h
+--- SpiralSynth-2.0.0-orig/SpiralSound/SpiralInfo.h	2002-06-02 10:44:45.000000000 -0500
++++ SpiralSynth-2.0.0/SpiralSound/SpiralInfo.h	2003-02-08 20:53:12.000000000 -0500
+@@ -16,10 +16,12 @@
+  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include <string>
+ #include <stdlib.h>
+ 
++using namespace std;
++
+ #ifndef SpiralINFO
+ #define SpiralINFO
+ 
+diff -r -u SpiralSynth-2.0.0-orig/SpiralSound/Synth.C SpiralSynth-2.0.0/SpiralSound/Synth.C
+--- SpiralSynth-2.0.0-orig/SpiralSound/Synth.C	2000-11-07 23:32:42.000000000 -0500
++++ SpiralSynth-2.0.0/SpiralSound/Synth.C	2003-02-08 20:53:12.000000000 -0500
+@@ -30,6 +30,8 @@
+ #include "Output.h"
+ #include "Midi.h"
+ 
++using namespace std;
++
+ Synth::Synth():
+ m_Oct(5),
+ m_Databuf(NULL), 
+diff -r -u SpiralSynth-2.0.0-orig/SpiralSound/Synth.h SpiralSynth-2.0.0/SpiralSound/Synth.h
+--- SpiralSynth-2.0.0-orig/SpiralSound/Synth.h	2000-11-07 23:32:42.000000000 -0500
++++ SpiralSynth-2.0.0/SpiralSound/Synth.h	2003-02-08 20:53:12.000000000 -0500
+@@ -38,6 +38,8 @@
+ #include "Midi.h"
+ #include "SynthInfo.h"
+ 
++using namespace std;
++
+ const int NUM_PATCHES=100;
+ const int PATCH_STRINGSIZE=1024;
+ 
+diff -r -u SpiralSynth-2.0.0-orig/SpiralSound/_SynthInfo.C SpiralSynth-2.0.0/SpiralSound/_SynthInfo.C
+--- SpiralSynth-2.0.0-orig/SpiralSound/_SynthInfo.C	2000-11-07 23:32:42.000000000 -0500
++++ SpiralSynth-2.0.0/SpiralSound/_SynthInfo.C	2003-02-08 20:53:12.000000000 -0500
+@@ -16,12 +16,14 @@
+  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+ 
+-#include <iostream.h>
+-#include <fstream.h>
++#include <iostream>
++#include <fstream>
+ #include <stdlib.h>
+ 
+ #include "SynthInfo.h"
+ 
++using namespace std;
++
+ float RandFloat(float s=0.0f, float e=1.0f)
+ {
+ 	return s+((rand()%10000/10000.0)*(e-s));
+diff -r -u SpiralSynth-2.0.0-orig/Synth.C SpiralSynth-2.0.0/Synth.C
+--- SpiralSynth-2.0.0-orig/Synth.C	2002-06-11 17:09:42.000000000 -0500
++++ SpiralSynth-2.0.0/Synth.C	2003-02-08 20:53:12.000000000 -0500
+@@ -30,6 +30,8 @@
+ #include "SpiralSound/Output.h"
+ #include "SpiralSound/Midi.h"
+ 
++using namespace std;
++
+ //#define PLUGIN
+ 
+ // midi controlled cutoff is set to effect 1
+diff -r -u SpiralSynth-2.0.0-orig/Synth.h SpiralSynth-2.0.0/Synth.h
+--- SpiralSynth-2.0.0-orig/Synth.h	2002-06-04 07:13:19.000000000 -0500
++++ SpiralSynth-2.0.0/Synth.h	2003-02-08 20:53:12.000000000 -0500
+@@ -37,6 +37,8 @@
+ #include "SpiralSound/Midi.h"
+ #include "SpiralSound/SpiralInfo.h"
+ 
++using namespace std;
++
+ const int NUM_PATCHES=100;
+ const int PATCH_STRINGSIZE=1024;
+ 
