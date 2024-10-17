@@ -15,7 +15,7 @@ Patch:		%name-2.0.0.patch
 Patch1:         SpiralSynth-2.0.0-fix-build.patch
 Patch2:		SpiralSynth-2.0.0-gcc43.patch
 Patch3:		SpiralSynth-2.0.0-newer-fltk.patch
-URL:		http://www.pawfal.org/Software/SpiralSynth
+URL:		https://www.pawfal.org/Software/SpiralSynth
 License:	GPL
 Group:		Sound
 BuildRoot:	%{_tmppath}/%{name}-buildroot
