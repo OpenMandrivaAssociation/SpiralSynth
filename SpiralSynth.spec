@@ -19,6 +19,11 @@ URL:		https://www.pawfal.org/Software/SpiralSynth
 License:	GPL
 Group:		Sound
 BuildRoot:	%{_tmppath}/%{name}-buildroot
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	fltk-devel mesagl-devel
 
 %description
